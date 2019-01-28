@@ -1,6 +1,6 @@
 def main():
-    # project()
-    extracredit()
+    project()
+    # extracredit()
 # Create a task list.
 # A user is presented with the text below.
 # Let them select an option to list all of their tasks,
@@ -18,23 +18,13 @@ def main():
 # 3. Delete a task.
 # 0. To quit the program
 
-class taskmanager:
-    def __init__(self,name,tasklist =[]):
-        self.name = name
-        self.tasklist = tasklist
-    def tasklist(self):
-        for x in self.tasklist():
-            print(x)
-
-outsidefile = open("tasklist1.txt","a")
+outsidefile = open("tasklist1","a")
 # the most dangerous thing i learned today,
 # you can COMPLETELY CHANGE EVERYTHING IN THE FILE
 # HOW DO YOU ADD WITHOUT REPLACING?
 def project():
-    userlist =["Thomas","Kenn","Person"]
-    tasklist = [{"name":"Thomas","taskList": ["task1","task2","task3"]},
-                {"name":"Kenn","taskList": ["task1","task2","task3"]},
-                {"name":"person","taskList": ["task1","task2","task3"]}]
+    userlist =["Thomas"]
+    tasklist = [{"name":"Thomas","taskList": "tasklist1"}]
     print("are you a new user?\n Y/n")
     for user in userlist:
         print(user)
@@ -43,7 +33,7 @@ def project():
     if(newUser.upper() == "Y"):
         userInputName = input("please enter name\n")
         userlist.append(userInputName)
-        tasklist.append({"name":userInputName,"taskList":[]})
+        tasklist.append({"name":userInputName,"taskList":(f"tasklist{len(userlist)}")})
         for person in userlist:
             if(userInputName.lower() == person.lower()):
                 user = person
@@ -68,33 +58,38 @@ def project():
         while(True):
             command = input("View\tAdd\tRemove\tquit\n")
             if(command.lower() == "quit"):
-                print("Have a good day")
+                print("have a good day")
                 break
             elif(command.lower() == "view"):
-                print(open("tasklist","r"))
-                print("Tasklist:")
                 for person in tasklist:
                     if person["name"] == user:
-                        for x in (person["taskList"]):
-                            print(f"task:{x}\n")
+                        print("taskList")
+                        file = open(person["taskList"],"r")
+                        print(file.read())
+                        file.close()
                     elif(person["taskList"] == []):
                         print("no tasks")
             elif(command.lower() == "add"):
                     newTask = input("What new task do you want to add?\n")
                     for person in tasklist:
-                        if person["name"] == user:
-                            person["taskList"].append(newTask)
+                        file = open(person["taskList"],"a")
+                        file.write(f"{newTask}\n")
             elif(command.lower() == "remove"):
+
                 taskToRemove = input("What task do you want to remove?\n")
                 for person in tasklist:
                     if person["name"] == user:
-                        if(taskToRemove not in person["taskList"]):
-                            print("No task found")
-                            break
-                        else:
-                            person["taskList"].remove(taskToRemove)
+                        readfile = open(person["taskList"],"r")
+                        lines = readfile.readlines()
+                        print(lines)
+                        readfile.close()
+                        editfiles = open(person["taskList"],"w")
+                        for task in lines:
+                            if(task != taskToRemove + "\n"):
+                                editfiles.write(task)
+                        editfiles.close()
             else:
-                print("Invalid command please reinput command\nView task list\tAdd task to list\tRemove task\tquit\n")
+                print("Invalid command please reinput command\nView\tAdd\tRemove\tquit\n")
     else:
         print("goodbye")
 
