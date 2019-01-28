@@ -12,7 +12,7 @@ What would you like to do next?
 0. To quit the program
 ```
 
-#### Extra Credit. Once a task is Output the data to a text file. When the program is run again, input that text file.
+#### Extra Credit. Save the user's list in a text file. When the program is run again, input that text file so their task list is not lost.
 
 Use the links below to get started on file io:
 - https://docs.python.org/3/tutorial/inputoutput.html#reading-and-writing-files
